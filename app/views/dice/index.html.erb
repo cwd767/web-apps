@@ -1,5 +1,32 @@
+<%
+die1 = rand(1..6)
+
+die2 = rand(1..6)
+
+total = die1 + die2
+
+result = 
+if total == 7 || total == 2
+  "YOU LOSE"
+else
+  "NUMBER IS #{total}"
+end
+%>
+
 <h1>
-DEYOUNG CASINO: ONLINE CRAPS
+  DEYOUNG CASINO: ONLINE CRAPS
+</h1>
+
+<p>
+  <img src="/images/dice/<%=die1%>.svg">  
+  <img src="/images/dice/<%=die2%>.svg">  
+  <h1>
+    Total: <%=total%>
   </h1>
+</p>
 
+<h1>
+  <%=result%>
+</h1>
 
+<a href = "/dice">Roll Again </a>
