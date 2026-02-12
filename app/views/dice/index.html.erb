@@ -1,32 +1,61 @@
-<%
-die1 = rand(1..6)
+<main class="dice-app">
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">DeYoung Online</p>
+      <h1>Retro Craps</h1>
+    </div>
+    <div class="status-light" aria-label="table is live">
+      <span></span>
+      <p>Table Live</p>
+    </div>
+  </header>
 
-die2 = rand(1..6)
+  <section class="stats-grid">
+    <article class="stat-card">
+      <p>Bankroll</p>
+      <h2>$<%= @bankroll %></h2>
+    </article>
+    <article class="stat-card">
+      <p>Record</p>
+      <h2><%= @wins %>W - <%= @losses %>L</h2>
+    </article>
+    <article class="stat-card">
+      <p>Current Streak</p>
+      <h2><%= @streak %></h2>
+    </article>
+    <article class="stat-card">
+      <p>Best Streak</p>
+      <h2><%= @best_streak %></h2>
+    </article>
+  </section>
 
-total = die1 + die2
+  <section class="table-shell">
+    <div class="table-top">
+      <p class="table-title">Craps Terminal</p>
+      <p class="table-subtitle">Roll #<%= @rolls %></p>
+    </div>
 
-result = 
-if total == 7 || total == 2
-  "YOU LOSE"
-else
-  "NUMBER IS #{total}"
-end
-%>
+    <div class="dice-lane" aria-live="polite">
+      <img src="/images/dice/<%= @die1 %>.svg" alt="Die one shows <%= @die1 %>">
+      <img src="/images/dice/<%= @die2 %>.svg" alt="Die two shows <%= @die2 %>">
+    </div>
 
-<h1>
-  DEYOUNG CASINO: ONLINE CRAPS
-</h1>
+    <div class="result-row">
+      <p class="total-pill">Total <span><%= @total %></span></p>
+      <p class="result-pill <%= @result_class %>"><%= @result %></p>
+    </div>
 
-<p>
-  <img src="/images/dice/<%=die1%>.svg">  
-  <img src="/images/dice/<%=die2%>.svg">  
-  <h1>
-    Total: <%=total%>
-  </h1>
-</p>
+    <form action="/dice" method="get" class="controls">
+      <label for="bet" class="bet-label">Bet</label>
+      <select id="bet" name="bet" class="bet-select">
+        <% [10, 25, 50, 100].each do |amount| %>
+          <option value="<%= amount %>" <%= "selected" if @bet == amount %>>
+            $<%= amount %>
+          </option>
+        <% end %>
+      </select>
 
-<h1>
-  <%=result%>
-</h1>
-
-<a href = "/dice">Roll Again </a>
+      <button type="submit" class="roll-button">Roll Dice</button>
+    </form>
+  </section>
+</main>
